@@ -27,6 +27,22 @@ public class KopecksFormatting {
         }
     }
 
+    public static String getKopecksTextRepresentation(BigDecimal bigDecimal){
+        int kopecks = getKopecks(bigDecimal);
+        if (kopecks == 0){
+            return "ноль копеек";
+        } else if (kopecks < 10){
+            return underTenKopecksTextMap().get(kopecks);
+        } else if (kopecks < 20){
+            return elevenToNineteenKopecksTextMap().get(kopecks);
+        } else if (kopecks < 100){
+            int numberOfTens = Integer.parseInt(String.valueOf(kopecks).substring(0, 1));
+            int numberOfIntegers = Integer.parseInt(String.valueOf(kopecks).substring(1, 2));
+            return String.format("%s %s", tensToTextKopecksMap().get(numberOfTens), underTenKopecksTextMap().get(numberOfIntegers));
+        }
+        throw new RuntimeException("Введено некорректное число копеек");
+    }
+
     public static int getKopecks(BigDecimal bigDecimal){
        return bigDecimal.remainder(BigDecimal.ONE).multiply(BigDecimal.valueOf(100)).setScale(0, RoundingMode.UNNECESSARY).intValue();
     }

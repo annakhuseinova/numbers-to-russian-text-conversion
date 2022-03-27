@@ -1,13 +1,20 @@
 package com.annakhuseinova;
 
+import java.math.BigDecimal;
 import java.util.Map;
+
+import static com.annakhuseinova.KopecksFormatting.getKopecksTextRepresentation;
 
 public class RublesAsTextGenerator {
 
     public static void main(String[] args) {
-        for (int rubles = 1; rubles < 10000000; rubles++) {
-            System.out.println(getRublesTextRepresentation(rubles));
-        }
+        BigDecimal bigDecimal = BigDecimal.valueOf(1541.00);
+        String rublesAsText = getRublesTextRepresentation(bigDecimal.intValue());
+        String kopeckAsText = getKopecksTextRepresentation(bigDecimal);
+        System.out.println(String.format("%s %s", rublesAsText, kopeckAsText));
+//        for (int rubles = 1; rubles < 10000000; rubles++) {
+//            System.out.println(getRublesTextRepresentation(rubles));
+//        }
     }
 
     /**
